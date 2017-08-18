@@ -24,3 +24,9 @@ surveys_sml <- surveys %>%
   filter(weight < 5) %>%
   select(species_id, sex, weight)
 
+##create new columns based on the values in existing columns
+surveys %>%
+  mutate(weight_kg = weight / 1000,
+         weight_kg2 = weight_kg * 2) %>%
+  tail
+
