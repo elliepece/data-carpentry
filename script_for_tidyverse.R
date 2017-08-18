@@ -65,3 +65,21 @@ surveys %>%
   group_by(sex) %>%
   summarize(mean_weight = mean(weight, na.rm = TRUE))
 
+##group by multiple columns and summarize
+
+#by removing all NAs
+surveys %>%
+  filter(!is.na(weight)) %>%
+  group_by(sex, species_id) %>%
+  summarize(mean_weight = mean(weight, na.rm = TRUE))
+
+#by selecting male and female factors
+surveys %>%
+  filter(sex == "F" | sex == "M") %>%
+  group_by(sex, species_id) %>%
+  summarize(mean_weight = mean(weight, na.rm = TRUE))
+
+##to know the number of observations found for each factor or combination of factors (tally)
+surveys %>%
+  group_by(sex) %>%
+  tally
