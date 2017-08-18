@@ -84,7 +84,7 @@ surveys %>%
   group_by(sex) %>%
   tally
 
-##Chalenges
+##Chalenges----
 ### 1. How many individuals were caught in each plot_type surveyed?
 surveys %>% 
   group_by(plot_type) %>%
@@ -124,3 +124,48 @@ filter(weight == max(weight)) %>%
 surveys %>%
   group_by(sex) %>%
   summarise(n())
+
+##exporting data ----
+
+##Surveys_complete 
+
+filter(species_id != "") %>%         # remove missing species_id
+       filter filter(!is.na(weight) %>%           # remove missing weight
+       filter(!is.na(hindfoot_length) %>%  # remove missing hindfoot_length
+       filter(sex != "")                # remove missing sex
+
+       ##same as:
+       
+  filter(species_id != "",         # remove missing species_id
+         !is.na(weight),           # remove missing weight
+         !is.na(hindfoot_length),  # remove missing hindfoot_length
+         sex != "")                # remove missing sex
+
+surveys_complete <- surveys %>%
+  filter(species_id != "",         
+         !is.na(weight),           
+         !is.na(hindfoot_length),  
+         sex != "")                
+
+##extract the most common species_id
+
+species_counts <- surveys_complete %>%
+  group_by(species_id) %>%
+  tally %>%
+  filter(n >= 50)
+
+## Only keep the most common species
+surveys_complete <- surveys_complete %>%
+  filter(species_id %in% species_counts$species_id)
+
+#how many columns and rows (variables and observations)
+dim(surveys_complete)
+
+## save it as a CSV file in our data_output folder. 
+##By default,  write.csv() includes a column with row names (in our case the names are just the row numbers), 
+##so we need to add row.names = FALSE so they are not included
+
+write.csv(surveys_complete, file = "data_output/surveys_complete.csv",
+          row.names = FALSE)
+
+
