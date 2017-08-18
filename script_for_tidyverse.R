@@ -57,3 +57,11 @@ surveys %>%
    mutate(hindfoot_half = hindfoot_length / 2) %>%
   filter(!is.na(hindfoot_half) & hindfoot_half<30) %>%
 select(species_id, hindfoot_half) 
+
+##group_by() takes as arguments the column names that contain the categorical variables for which you want to calculate the summary statistics.
+#group_by() is often used together with summarize(), which collapses each group into a single-row summary of that group
+#na.rm -> removes all the "na"s of your data
+surveys %>%
+  group_by(sex) %>%
+  summarize(mean_weight = mean(weight, na.rm = TRUE))
+
