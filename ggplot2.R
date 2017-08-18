@@ -78,14 +78,26 @@ avg_species_weight <- surveys_complete %>%
   group_by(year, species_id) %>%
   summarize(mean_weight = mean(weight)
             
+            ggplot(data = avg_species_weight, aes(x = year, y = mean_weight, color = species_id)) +
+              geom_line() +
+              facet_wrap(~ species_id)+
+              labs(x = "Year", 
+                   y = "Mean weight (g)") +
+              theme_bw()+             ##how the graph looks like, they have different themes
+              theme(axis.text.x = element_text(angle = 90),   
+                    legend.position="none") ##how to get rid of the legend
+            
+            ##save your plot as an object
             
 my_plot <- ggplot(data = avg_species_weight, aes(x = year, y = mean_weight, color = species_id)) +
   geom_line() +
   facet_wrap(~ species_id)+
 labs(x = "Year", 
      y = "Mean weight (g)") +
-  theme_bw()+             ##how the graph looks like, they have different themes
+  theme_bw()+             
 theme(axis.text.x = element_text(angle = 90),   
-      legend.position="none") ##how to get rid of the legend
+      legend.position="none") 
 
+
+## command needed to save as an object = ggsave
 ggsave("my_plot.png", my_plot)
