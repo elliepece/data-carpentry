@@ -1,4 +1,4 @@
-## my script from data carprentry @ UC Merced 
+## my script from data carprentry @ UC Merced August 18 2017 
 ## Elisabet Perez eperezcoronel@ucmerced.edu
 
 ##download data ----
