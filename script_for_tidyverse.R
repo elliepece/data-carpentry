@@ -30,3 +30,30 @@ surveys %>%
          weight_kg2 = weight_kg * 2) %>%
   tail
 
+##is.na is a function that lets you find the "na"s in your data and ! means different than
+surveys %>%
+  filter(!is.na(weight)) %>%     
+  mutate(weight_kg = weight / 1000,
+         weight_kg2 = weight_kg * 2) %>%
+  tail
+
+##Create a new data frame from the surveys data that meets the following criteria: 
+#contains only the species_id column and a new column called hindfoot_half containing 
+#values that are half the hindfoot_length values. In this hindfoot_half column,
+#there are no NAs and all values are less than 30.
+
+surveys %>% 
+  select(species_id, hindfoot_length) %>%
+
+
+surveys %>% 
+  mutate(hindfoot_length / 2)
+
+##you don't have to use select in the beggining of the argument, so first you divide halfoot hind and put in in a new object
+#then you pipe it into filter to get rid of the NAs and the less than 30 results. Finally you pipe it into
+#into select to onlye select the rows columns that you want
+
+surveys %>% 
+   mutate(hindfoot_half = hindfoot_length / 2) %>%
+  filter(!is.na(hindfoot_half) & hindfoot_half<30) %>%
+select(species_id, hindfoot_half) 
