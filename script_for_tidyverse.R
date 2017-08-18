@@ -37,7 +37,7 @@ surveys %>%
          weight_kg2 = weight_kg * 2) %>%
   tail
 
-##Create a new data frame from the surveys data that meets the following criteria: 
+##Challenge: Create a new data frame from the surveys data that meets the following criteria: 
 #contains only the species_id column and a new column called hindfoot_half containing 
 #values that are half the hindfoot_length values. In this hindfoot_half column,
 #there are no NAs and all values are less than 30.
@@ -83,3 +83,44 @@ surveys %>%
 surveys %>%
   group_by(sex) %>%
   tally
+
+##Chalenges
+### 1. How many individuals were caught in each plot_type surveyed?
+surveys %>% 
+  group_by(plot_type) %>%
+  tally()
+
+
+## 2. Use group_by() and summarize() to find the mean, min, and 
+## max hindfoot length for each species (using species_id).
+surveys %>%
+  filter(!is.na(hindfoot_length)) %>%
+  group_by(species_id) %>%
+  summarize(mean(hindfoot_length), 
+            min(hindfoot_length),
+            max(hindfoot_length))
+
+##this doesn't work because tidyverse doesn't recognize summary as a function 
+surveys %>%
+  filter(!is.na(hindfoot_length)) %>%
+  group_by(species_id) %>%
+  summarize(summary(hindfoot_length))
+            
+            
+## 3. What was the heaviest animal measured in each year? Return
+## the columns year, genus, species_id, and weight.
+surveys %>%
+  filter(!is.na(weight)) %>%
+  group_by(year) %>%
+filter(weight == max(weight)) %>%
+  select(year, genus, species_id, weight) %>%
+  arrange(year)
+
+## 4. You saw above how to count the number of individuals of each sex using a
+## combination of group_by() and tally(). How could you get the same result using
+## group_by() and summarize()? Hint: see ?n.
+# n () The number of observations in the current group.
+
+surveys %>%
+  group_by(sex) %>%
+  summarise(n())
