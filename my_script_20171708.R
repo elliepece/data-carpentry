@@ -18,9 +18,6 @@
 ##shows first 6 rows of data
 #head(surveys)
 
-##shows last 6 rows of data
-#tail(surveys)
-
 ##shows last 12 rows of data
 #tail(surveys, 12)
 
@@ -71,7 +68,5 @@
 #nrow(surveys[surveys$month==1 | surveys$month == 2, ]) ## | or operator
 or
 #length(which(surveys$month < 3))
-
-
 
 
